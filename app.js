@@ -27,34 +27,43 @@ var controls;
 
 window.onload = function(){
     scene = new THREE.Scene();
-    camera = new THREE.PerspectiveCamera( 40, w / h,.1, 40000 );
+    camera = new THREE.PerspectiveCamera( 75, w / h,1, 40000 );
 
-    renderer = new THREE.WebGLRenderer({logarithmicDepthBuffer:true});
+    // renderer = new THREE.WebGLRenderer();
+    renderer = new THREE.WebGLRenderer({
+        logarithmicDepthBuffer:true,
+        powerPreference: "high-performance"
+    });
     renderer.setSize(w, h);
+    renderer.setClearColor(0x000000, .8);
+
+    renderer.setPixelRatio(window.devicePixelRatio);
 
     document.body.appendChild(renderer.domElement);
 
     controls = new THREE.OrbitControls( camera );
     controls.maxPolarAngle = (Math.PI);
 
-    scene.add( new THREE.AmbientLight(0x101010) );
-    light = new THREE.PointLight( 0xffffff, 1, 0 );
+    // scene.add( new THREE.AmbientLight(0x101010) );
+    // AmbientLight 추가 (희미한 환경광)
+    scene.add(new THREE.AmbientLight(0x222222)); // 어두운 회색빛
+    light = new THREE.PointLight( 0x000000, 1, 0 );
     scene.add( light );
     
-    scene.fog = new THREE.Fog(0xffffff,10, 100);
+    // 검은 배경에서 선명하게 보이도록 안개 색상 조정
+    scene.fog = new THREE.Fog(0xffffff, 1, 200);
 
     group = new THREE.Group();
 
     var xy = map.mercator.latLonToMeters( -lat, lng, map.zoom);
-    //camera.position.x = -13640768.438104622;
-    //camera.position.y = 14615.668647974027;
-    //camera.position.z = -4528503.340282675;
-    camera.position.x = 14136800.808392255;
-    camera.position.y = 5683.565400638121;
-    camera.position.z = -4494748.458770682;
+    camera.position.x = 14135254.256059827;
+    camera.position.y = 7679.137457212418;
+    camera.position.z = -4513809.019715486;
     controls.target.x = xy[0];
     controls.target.z = xy[1];
-    camera.lookAt( controls.target );
+    // camera.lookAt( controls.target );
+
+
 
     // var test_geo = new THREE.BoxGeometry(100,100,100,1,1,1);
     // var test_mar = new THREE.MeshPhongMaterial({color : 0x515151});
@@ -96,6 +105,7 @@ window.onload = function(){
     start = Date.now();
     //materials.dark();
     update();
+    renderer.render(scene, camera);
 };
 
 window.onresize = function()
@@ -113,10 +123,10 @@ function update(){
     var ll = map.mercator.metersToLatLon( controls.target.x, -controls.target.z, map.zoom);
     map.setView(ll[0], ll[1]);
 
-    light.position.copy( camera.position );
-    light.position.y += 1000;
+    // light.position.copy( camera.position );
+    // light.position.y += 1000;
 
-    renderer.setClearColor(0x6C7A8C, 1);
+    // renderer.setClearColor(0x6C7A8C, 1);
     renderer.render( scene, camera );
 
 }

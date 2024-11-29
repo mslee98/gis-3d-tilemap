@@ -3,8 +3,6 @@ var TileBuffer = function() {
     //creates a single geometry from vertices buffers and edges informations ( and some extra shnizzle too )
     function TileBuffer( tile, bufferVertices, bufferEdges, geo_type, bufferHeights, processUvs, bufferUIDs ){
 
-        console.log("ssssssssssssssssssss",geo_type);
-
         //might be useful ...
         this.tile = tile;
 
@@ -188,48 +186,72 @@ var TileBuffer = function() {
             console.log( "processUvs" );
             geom.addAttribute( 'uv', new THREE.BufferAttribute( uvs, 2 ) );
         }
-        console.log(materials);
         
-        // var testMaterial = new THREE.MeshPhongMaterial ({
-        //     color : 0xF2D8A7,
-        //     specular :  0xD9725B,
-        //     wireframe : true
-        // });
-
         var material;
 
-        if(geo_type === "landuse") {
+        if (geo_type === "landuse") {
             material = new THREE.MeshPhongMaterial({
-                color:0xffffff,
-                emissive:0xff0000,
-                reflectivity:1.5,
-                refractionRatio:.5,
-                shininess:20,
-                shading:THREE.FlatShading
+                color: 0x000000,
+                transparent: true,
+                opacity: 0.8,
+                wireframe: true
             });
         } else if (geo_type === "buildings") {
             material = new THREE.MeshPhongMaterial({
-                color:0xffff00,
-                emissive:0xff0000,
-                reflectivity:1.5,
-                refractionRatio:.5,
-                shininess:20,
-                shading:THREE.FlatShading
+                color: 0xffffff,
+                transparent: true,
+                opacity: 0.8,
+                wireframe: true
             });
         } else if (geo_type === "roads") {
             material = new THREE.MeshPhongMaterial({
-                color:0x000000,
-                emissive:0xff0000,
-                reflectivity:1.5,
-                refractionRatio:.5,
-                shininess:20,
-                shading:THREE.FlatShading
+                color: 0xffffff,
+                transparent: true,
+                opacity: 0.8,
+                wireframe: true
             });
         } else {
-            
+            material = new THREE.MeshPhongMaterial({
+                color: 0x000000,
+                transparent: true,
+                opacity: 0.8,
+                wireframe: true
+            });
         }
 
+        // if(geo_type === "landuse") {
+        //     material = new THREE.MeshPhongMaterial({
+        //         color:0xffffff,
+        //         emissive:0xff0000,
+        //         reflectivity:1.5,
+        //         refractionRatio:.5,
+        //         shininess:20,
+        //         shading:THREE.FlatShading
+        //     });
+        // } else if (geo_type === "buildings") {
+        //     material = new THREE.MeshPhongMaterial({
+        //         color:0xfff000,
+        //         emissive:0xff0000,
+        //         reflectivity:1.5,
+        //         refractionRatio:.5,
+        //         shininess:20,
+        //         shading:THREE.FlatShading,
+        //     });
+        // } else if (geo_type === "roads") {
+        //     material = new THREE.MeshPhongMaterial({
+        //         color:0xfff000,
+        //         emissive:0xff0000,
+        //         reflectivity:1.5,
+        //         refractionRatio:.5,
+        //         shininess:20,
+        //         shading:THREE.FlatShading
+        //     });
+        // } else {
+            
+        // }
+
         THREE.Mesh.call(this, geom, material );
+        // THREE.Mesh.call(this, geom, testMaterial);
         
         //THREE.Mesh.call( this, geom, material );
     }

@@ -127,7 +127,9 @@ var builder = function(exports){
     
             });
             var tileBuffer = new TileBuffer( tile, bufferVertices, bufferEdges,  geo_type , bufferHeights, type=="water", bufferUIDs );
-    
+            
+            
+
             parent.add( tileBuffer );
         }
 

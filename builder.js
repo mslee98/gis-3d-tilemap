@@ -20,17 +20,27 @@ var builder = function(exports){
 
         var geo_type;
 
+        console.log(Object.getOwnPropertyNames(data))
+
         for( var i = 0; i < Object.getOwnPropertyNames(data).length; i++ ) {
 
             if( i == 1) {
                 geo_type = "buildings";
+            } else if (i == 2) { 
+                geo_type = "places"
             } else if ( i == 6 ) {
                 geo_type = "roads";
             } else if ( i == 8 ) {
                 geo_type = "landuse";
-            } else {
+            } 
+            // else if () {
+            //     geo_type = "rail"
+            // } 
+            else {
                 continue;
             }
+
+            // console.log(data[geo_type])
 
             data[geo_type].features.forEach( function( feat ) {
 
@@ -39,15 +49,10 @@ var builder = function(exports){
                     //var uid = feat.id.toString();// || feat.properties.id.toString() || feat.properties.FID.toString();
                     //this feature is a single point (street names mostly)
                     
-                    
-                    
                     if( !isNaN( feat.geometry.coordinates[0] ) ) {
                         //console.log(feat);
                         return;
                     }
-
-                    
-                    
                     
                     //the feature with this ID has already been built
                     //if (buildings[ uid ] != null )return;

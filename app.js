@@ -49,52 +49,54 @@ window.onload = function(){
     // light.position.set(100, 1000, 1000);
     scene.add(light);
 
-    const gui = new dat.GUI({ autoPlace: false });
 
-    const guiContainer = document.querySelector("#guiContainer");
-    guiContainer.appendChild(gui.domElement);
+    //gui 안나옴 
+    // const gui = new dat.GUI({ autoPlace: false });
 
-    gui.domElement.style.position = "absolute";
-    gui.domElement.style.top = "10px";  // 원하는 위치
-    gui.domElement.style.left = "10px"; // 원하는 위치
-    gui.domElement.style.zIndex = "1000";
+    // const guiContainer = document.querySelector("#guiContainer");
+    // guiContainer.appendChild(gui.domElement);
+
+    // gui.domElement.style.position = "absolute";
+    // gui.domElement.style.top = "10px";  // 원하는 위치
+    // gui.domElement.style.left = "10px"; // 원하는 위치
+    // gui.domElement.style.zIndex = "1000";
 
     // GUI 속성 추가
-    const lightFolder = gui.addFolder("Light Position");
-    lightFolder.add(light.position, "x", -500, 500);
-    lightFolder.add(light.position, "y", -500, 500);
-    lightFolder.add(light.position, "z", -500, 500);
-    lightFolder.open();
+    // const lightFolder = gui.addFolder("Light Position");
+    // lightFolder.add(light.position, "x", -500, 500);
+    // lightFolder.add(light.position, "y", -500, 500);
+    // lightFolder.add(light.position, "z", -500, 500);
+    // lightFolder.open();
 
-    
+    // 안개색이 건물에 영향을 미치니 Material Basic으로 해도 상관 없어보임
     // 검은 배경에서 선명하게 보이도록 안개 색상 조정
-    // scene.fog = new THREE.Fog(0xffffff, 1, 200);
+    scene.fog = new THREE.Fog(0xffffff, 1, 200);
     // scene.fog = FogExp2(0xffffff, 0.92);
-    const fogShaderMaterial = new THREE.ShaderMaterial({
-        uniforms: {
-            fogColor: { value: new THREE.Color(0xffffff) },
-            fogNear: { value: 1.0 },
-            fogFar: { value: 200.0 },
-        },
-        vertexShader: `
-            varying float fogDepth;
-            void main() {
-                fogDepth = -mvPosition.z;
-                gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
-            }
-        `,
-        fragmentShader: `
-            uniform vec3 fogColor;
-            uniform float fogNear;
-            uniform float fogFar;
-            varying float fogDepth;
-            void main() {
-                float fogFactor = smoothstep(fogNear, fogFar, fogDepth);
-                vec3 color = mix(vec3(1.0, 1.0, 1.0), fogColor, fogFactor);
-                gl_FragColor = vec4(color, 1.0);
-            }
-        `
-    });
+    // const fogShaderMaterial = new THREE.ShaderMaterial({
+    //     uniforms: {
+    //         fogColor: { value: new THREE.Color(0xffffff) },
+    //         fogNear: { value: 1.0 },
+    //         fogFar: { value: 200.0 },
+    //     },
+    //     vertexShader: `
+    //         varying float fogDepth;
+    //         void main() {
+    //             fogDepth = -mvPosition.z;
+    //             gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+    //         }
+    //     `,
+    //     fragmentShader: `
+    //         uniform vec3 fogColor;
+    //         uniform float fogNear;
+    //         uniform float fogFar;
+    //         varying float fogDepth;
+    //         void main() {
+    //             float fogFactor = smoothstep(fogNear, fogFar, fogDepth);
+    //             vec3 color = mix(vec3(1.0, 1.0, 1.0), fogColor, fogFactor);
+    //             gl_FragColor = vec4(color, 1.0);
+    //         }
+    //     `
+    // });
 
     group = new THREE.Group();
 
@@ -106,14 +108,12 @@ window.onload = function(){
     controls.target.z = xy[1];
     // camera.lookAt( controls.target );
 
-
-
-    // var test_geo = new THREE.BoxGeometry(100,100,100,1,1,1);
+    // var test_geo = new THREE.PlaneGeometry(1000,1000,100,100);
     // var test_mar = new THREE.MeshPhongMaterial({color : 0x515151});
     // var test_mesh = new THREE.Mesh(test_geo, test_mar);
     // test_mesh.position.set(14135172.466141123,0,-4518391.85948968)
     // group.add(test_mesh);
-    // scene.add( group );
+    scene.add( group );
 
 
     const loader = new THREE.OBJLoader();

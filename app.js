@@ -89,13 +89,7 @@ window.onload = function(){
     controls.target.z = xy[1];
     // camera.lookAt( controls.target );
 
-    // var test_geo = new THREE.PlaneGeometry(1000,1000,100,100);
-    // var test_mar = new THREE.MeshPhongMaterial({color : 0x515151});
-    // var test_mesh = new THREE.Mesh(test_geo, test_mar);
-    // test_mesh.position.set(14135172.466141123,0,-4518391.85948968)
-    // group.add(test_mesh);
     scene.add( group );
-
 
     const loader = new THREE.OBJLoader();
 
@@ -147,10 +141,6 @@ function update(){
     var ll = map.mercator.metersToLatLon( controls.target.x, -controls.target.z, map.zoom);
     map.setView(ll[0], ll[1]);
 
-    // light.position.copy( camera.position );
-    // light.position.y += 1000;
-
-    // renderer.setClearColor(0x6C7A8C, 1);
     renderer.render( scene, camera );
 
 }

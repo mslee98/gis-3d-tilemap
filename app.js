@@ -49,25 +49,6 @@ window.onload = function(){
     // light.position.set(100, 1000, 1000);
     scene.add(light);
 
-
-    //gui 안나옴 
-    // const gui = new dat.GUI({ autoPlace: false });
-
-    // const guiContainer = document.querySelector("#guiContainer");
-    // guiContainer.appendChild(gui.domElement);
-
-    // gui.domElement.style.position = "absolute";
-    // gui.domElement.style.top = "10px";  // 원하는 위치
-    // gui.domElement.style.left = "10px"; // 원하는 위치
-    // gui.domElement.style.zIndex = "1000";
-
-    // GUI 속성 추가
-    // const lightFolder = gui.addFolder("Light Position");
-    // lightFolder.add(light.position, "x", -500, 500);
-    // lightFolder.add(light.position, "y", -500, 500);
-    // lightFolder.add(light.position, "z", -500, 500);
-    // lightFolder.open();
-
     // 안개색이 건물에 영향을 미치니 Material Basic으로 해도 상관 없어보임
     // 검은 배경에서 선명하게 보이도록 안개 색상 조정
     scene.fog = new THREE.Fog(0xffffff, 1, 200);

@@ -52,7 +52,6 @@ window.onload = function(){
     // 안개색이 건물에 영향을 미치니 Material Basic으로 해도 상관 없어보임
     // 검은 배경에서 선명하게 보이도록 안개 색상 조정
     scene.fog = new THREE.Fog(0xffffff, 1, 200);
-    // scene.fog = FogExp2(0xffffff, 0.92);
     // const fogShaderMaterial = new THREE.ShaderMaterial({
     //     uniforms: {
     //         fogColor: { value: new THREE.Color(0xffffff) },
@@ -81,7 +80,11 @@ window.onload = function(){
 
     group = new THREE.Group();
 
+    // 마르세유 지도 제작자 소스코드를 참고함
+    // 메트카토르 투영법으로 위도경도를 미터로 변환하여 나타냄
     var xy = map.mercator.latLonToMeters( -lat, lng, map.zoom);
+
+
     camera.position.x = 14135254.256059827;
     camera.position.y = 7679.137457212418;
     camera.position.z = -4513809.019715486;

@@ -192,7 +192,7 @@ var TileBuffer = function() {
         if (geo_type === "landuse") {
             material = new THREE.MeshPhongMaterial({
                 color: 0x000000,
-                transparent: true,
+                transparent: false,
                 opacity: 0.8,
                 wireframe: true
             });
